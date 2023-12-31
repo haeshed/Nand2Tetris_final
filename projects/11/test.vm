@@ -1,0 +1,67 @@
+label new
+	push 4
+	call Memory.alloc 1
+	pop pointer 0
+	push this 0
+	pop this 0
+	push this 1
+	pop this 1
+	push this 0
+	return
+label dispose
+	push argument 0
+	pop pointer 0
+	call square.dispose 0
+	pop temp 0
+	push this 0
+	call Memory.deAlloc 1
+	pop temp 0
+	return
+label moveSquare
+	push argument 0
+	pop pointer 0
+	push this 1
+	call Sys.wait 1
+	pop temp 0
+	return
+label run
+	push argument 0
+	pop pointer 0
+	push local 0
+	pop local 1
+	return
+label foo
+	push argument 0
+	pop pointer 0
+	push constant 10
+	call Array.new 1
+	pop local 0
+	push local 0
+	push constant 3
+	add
+	pop pointer 1
+	push that 0
+	push constant 4
+	add
+	return
+label bar
+	push argument 0
+	pop pointer 0
+	push 3
+	call String.new 1
+	push 97
+	call String.appendChar 1
+	pop temp 0
+	pop temp 1
+	push temp 0
+	push 115
+	call String.appendChar 1
+	pop temp 0
+	pop temp 1
+	push temp 0
+	push 100
+	call String.appendChar 1
+	pop temp 0
+	pop temp 1
+	push temp 0
+	return

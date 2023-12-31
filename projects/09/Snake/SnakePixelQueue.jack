@@ -1,0 +1,108 @@
+
+/** Represents a Queue of SnakePixels. */
+class SnakePixelQueue {
+    field SnakePixelNode head, tail;          // a SnakePixelQueue consists of a head and tail
+
+    /* Creates a SnakePixelQueue. */
+    constructor SnakePixelQueue new() {
+        let head = null;
+        let tail = null;
+        return this;
+    }
+
+    /* Getters */
+    method SnakePixelNode getHead() {
+        return head;
+    }
+
+    method void enqueue(SnakePixelNode e) {
+        var SnakePixelNode currentHead;
+        let currentHead = head;
+        if (head = null) {
+            if (tail = null) {
+                let head = e;
+                let tail = e;
+            }
+        }
+        else {
+            let head = e;
+            do e.setNext(currentHead);
+            do e.setPrev(null);
+            do currentHead.setPrev(e);
+        }
+        return;
+    }
+
+    method SnakePixelNode dequeue() {
+        var SnakePixelNode currentTail;
+
+        if (head = null) {
+            return null;
+        }
+        else {
+            let currentTail = tail;
+            if (head = tail) {
+                let head = null;
+                let tail = null;
+                do currentTail.setNext(null); // This is done to avoid bugs but it should be null anyways
+                return currentTail;
+            }
+            else {
+                let tail = currentTail.getPrev();
+                do tail.setNext(null);
+                do currentTail.setNext(null); // This is done to avoid bugs but it should be null anyways
+                return currentTail;
+            }
+        }
+    }
+
+    /**
+    Adds a node to the queue's end, a.k.a the tail. Makes n the new tail
+    */
+    method void addTail(SnakePixelNode n) {
+        var SnakePixelNode currentTail;
+
+        let currentTail = tail;
+        let tail = n;
+        do currentTail.setNext(n);
+        do n.setPrev(currentTail);
+        do n.setNext(null);
+        return;
+    }
+
+    /**
+    Returns 1 if head is duplicated in queue 
+    */
+    method int isHeadDuplicate() {
+        var SnakePixelNode current;    // initializes current to head
+        var SnakePixel p, o;
+        var int foundCount;
+
+        let o = head.getData();
+        let current = head;  // of this SnakePixelNode
+
+        if (current = null) {
+            return 0;
+        }
+
+        let current = current.getNext();
+        while (~(current = null)) {
+            let p = current.getData();
+            if (p.isEqual(o) = 1) {
+                return 1;
+            }
+            let current = current.getNext();
+        }
+        return 0;
+    }
+
+    /** Prints this SnakePixelQueue's nodes. */
+    method void print() {
+        var SnakePixelNode current;    // initializes current to head
+        let current = head;  // of this SnakePixelNode
+        if (~(current = null)){
+            do current.print();
+        }
+        return;
+    }
+}

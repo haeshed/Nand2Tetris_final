@@ -1,0 +1,75 @@
+function SnakePixel.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 10
+pop static 0
+push argument 0
+call Point.getX 1
+push argument 0
+call Point.getY 1
+call Point.new 2
+pop this 0
+push pointer 0
+return
+function SnakePixel.getCoordinates 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function SnakePixel.isEqual 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call SnakePixel.getCoordinates 1
+call Point.isEqual 2
+return
+function SnakePixel.getWidth 0
+push static 0
+return
+function SnakePixel.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+call Point.getX 1
+push this 0
+call Point.getY 1
+push this 0
+call Point.getX 1
+push static 0
+add
+push this 0
+call Point.getY 1
+push static 0
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function SnakePixel.print 0
+push argument 0
+pop pointer 0
+push this 0
+call Point.print 1
+pop temp 0
+push constant 0
+return
+function SnakePixel.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Point.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

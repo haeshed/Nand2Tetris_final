@@ -1,0 +1,191 @@
+function SnakePixelQueue.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push pointer 0
+return
+function SnakePixelQueue.getHead 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function SnakePixelQueue.enqueue 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+pop this 0
+push argument 1
+pop this 1
+label IF_FALSE1
+goto IF_END0
+label IF_FALSE0
+push argument 1
+pop this 0
+push argument 1
+push local 0
+call SnakePixelNode.setNext 2
+pop temp 0
+push argument 1
+push constant 0
+call SnakePixelNode.setPrev 2
+pop temp 0
+push local 0
+push argument 1
+call SnakePixelNode.setPrev 2
+pop temp 0
+label IF_END0
+push constant 0
+return
+function SnakePixelQueue.dequeue 1
+push argument 0
+pop pointer 0
+push this 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+goto IF_END0
+label IF_FALSE0
+push this 1
+pop local 0
+push this 0
+push this 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop this 0
+push constant 0
+pop this 1
+push local 0
+push constant 0
+call SnakePixelNode.setNext 2
+pop temp 0
+push local 0
+return
+goto IF_END1
+label IF_FALSE1
+push local 0
+call SnakePixelNode.getPrev 1
+pop this 1
+push this 1
+push constant 0
+call SnakePixelNode.setNext 2
+pop temp 0
+push local 0
+push constant 0
+call SnakePixelNode.setNext 2
+pop temp 0
+push local 0
+return
+label IF_END1
+label IF_END0
+function SnakePixelQueue.addTail 1
+push argument 0
+pop pointer 0
+push this 1
+pop local 0
+push argument 1
+pop this 1
+push local 0
+push argument 1
+call SnakePixelNode.setNext 2
+pop temp 0
+push argument 1
+push local 0
+call SnakePixelNode.setPrev 2
+pop temp 0
+push argument 1
+push constant 0
+call SnakePixelNode.setNext 2
+pop temp 0
+push constant 0
+return
+function SnakePixelQueue.isHeadDuplicate 4
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixelNode.getData 1
+pop local 2
+push this 0
+pop local 0
+push local 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+call SnakePixelNode.getNext 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+push local 0
+call SnakePixelNode.getData 1
+pop local 1
+push local 1
+push local 2
+call SnakePixel.isEqual 2
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+return
+label IF_FALSE1
+push local 0
+call SnakePixelNode.getNext 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function SnakePixelQueue.print 1
+push argument 0
+pop pointer 0
+push this 0
+pop local 0
+push local 0
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call SnakePixelNode.print 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return

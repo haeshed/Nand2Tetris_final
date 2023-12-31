@@ -1,0 +1,391 @@
+function Snake.new 3
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 1
+call SnakePixelQueue.new 0
+pop this 0
+push constant 41
+push constant 41
+call Point.new 2
+call SnakePixel.new 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 0
+push constant 51
+push constant 41
+call Point.new 2
+call SnakePixel.new 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 1
+push constant 61
+push constant 41
+call Point.new 2
+call SnakePixel.new 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 2
+push this 0
+push local 0
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push this 0
+push local 1
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push this 0
+push local 2
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push pointer 0
+return
+function Snake.render 3
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+call SnakePixelQueue.getHead 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+push local 0
+call SnakePixelNode.getData 1
+pop local 1
+push local 1
+call SnakePixel.getCoordinates 1
+pop local 2
+push local 2
+call Point.getX 1
+push local 2
+call Point.getY 1
+push local 2
+call Point.getX 1
+call SnakePixel.getWidth 0
+add
+push local 2
+call Point.getY 1
+call SnakePixel.getWidth 0
+add
+call Screen.drawRectangle 4
+pop temp 0
+push local 0
+call SnakePixelNode.getNext 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 0
+return
+function Snake.changeDirection 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+eq
+push argument 1
+push constant 2
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 1
+eq
+push this 1
+push constant 3
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 1
+pop this 1
+label IF_FALSE1
+label IF_FALSE0
+push argument 1
+push constant 1
+eq
+push argument 1
+push constant 3
+eq
+or
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+push constant 0
+eq
+push this 1
+push constant 2
+eq
+or
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 1
+pop this 1
+label IF_FALSE3
+label IF_FALSE2
+push constant 0
+return
+function Snake.advance 1
+push argument 0
+pop pointer 0
+push this 2
+pop local 0
+push local 0
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+call SnakePixelNode.dispose 1
+pop temp 0
+label IF_FALSE0
+push this 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+call Snake.moveRight 1
+pop temp 0
+label IF_FALSE1
+push this 1
+push constant 1
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push pointer 0
+call Snake.moveDown 1
+pop temp 0
+label IF_FALSE2
+push this 1
+push constant 2
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+call Snake.moveLeft 1
+pop temp 0
+label IF_FALSE3
+push this 1
+push constant 3
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+call Snake.moveUp 1
+pop temp 0
+label IF_FALSE4
+push this 0
+call SnakePixelQueue.dequeue 1
+pop this 2
+push constant 0
+return
+function Snake.getCurrentHeadPoint 3
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixelQueue.getHead 1
+pop local 0
+push local 0
+call SnakePixelNode.getData 1
+pop local 1
+push local 1
+call SnakePixel.getCoordinates 1
+pop local 2
+push local 2
+return
+function Snake.moveRight 3
+push argument 0
+pop pointer 0
+push pointer 0
+call Snake.getCurrentHeadPoint 1
+pop local 2
+push local 2
+call Point.getX 1
+call SnakePixel.getWidth 0
+add
+push local 2
+call Point.getY 1
+call Point.new 2
+call SnakePixel.new 1
+pop local 1
+push local 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 0
+push this 0
+push local 0
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push constant 0
+return
+function Snake.moveDown 3
+push argument 0
+pop pointer 0
+push pointer 0
+call Snake.getCurrentHeadPoint 1
+pop local 2
+push local 2
+call Point.getX 1
+push local 2
+call Point.getY 1
+call SnakePixel.getWidth 0
+add
+call Point.new 2
+call SnakePixel.new 1
+pop local 1
+push local 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 0
+push this 0
+push local 0
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push constant 0
+return
+function Snake.moveLeft 3
+push argument 0
+pop pointer 0
+push pointer 0
+call Snake.getCurrentHeadPoint 1
+pop local 2
+push local 2
+call Point.getX 1
+call SnakePixel.getWidth 0
+sub
+push local 2
+call Point.getY 1
+call Point.new 2
+call SnakePixel.new 1
+pop local 1
+push local 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 0
+push this 0
+push local 0
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push constant 0
+return
+function Snake.moveUp 3
+push argument 0
+pop pointer 0
+push pointer 0
+call Snake.getCurrentHeadPoint 1
+pop local 2
+push local 2
+call Point.getX 1
+push local 2
+call Point.getY 1
+call SnakePixel.getWidth 0
+sub
+call Point.new 2
+call SnakePixel.new 1
+pop local 1
+push local 1
+push constant 0
+call SnakePixelNode.new 2
+pop local 0
+push this 0
+push local 0
+call SnakePixelQueue.enqueue 2
+pop temp 0
+push constant 0
+return
+function Snake.eat 2
+push argument 0
+pop pointer 0
+push this 0
+push this 2
+call SnakePixelQueue.addTail 2
+pop temp 0
+push this 2
+call SnakePixelNode.getData 1
+pop local 0
+push local 0
+call SnakePixel.getCoordinates 1
+pop local 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push local 1
+call Point.getX 1
+push local 1
+call Point.getY 1
+push local 1
+call Point.getX 1
+call SnakePixel.getWidth 0
+add
+push local 1
+call Point.getY 1
+call SnakePixel.getWidth 0
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 2
+call SnakePixelNode.getNext 1
+pop this 2
+push constant 0
+return
+function Snake.hasEeatenItself 0
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixelQueue.isHeadDuplicate 1
+return
+function Snake.print 0
+push argument 0
+pop pointer 0
+push constant 7
+call String.new 1
+push constant 83
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 97
+call String.appendChar 2
+push constant 107
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 58
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push this 0
+call SnakePixelQueue.print 1
+pop temp 0
+push constant 0
+return

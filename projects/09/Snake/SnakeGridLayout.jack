@@ -1,0 +1,32 @@
+class SnakeGridLayout {
+    field VoidRectangle container;
+    field int rightBorder, downBorder, leftBorder, upBorder;
+
+    constructor SnakeGridLayout new(Point lu, Point ru, Point rd, Point ld) {
+        let container = VoidRectangle.new(lu, ru, rd, ld);
+        let rightBorder = rd.getX();
+        let downBorder = rd.getY();
+        let leftBorder = lu.getX();
+        let upBorder = lu.getY();
+        return this;
+    }
+
+    /* Getters */
+    method int getRightBorder() { return rightBorder; }
+    method int getDownBorder() { return downBorder; }
+    method int getLeftBorder() { return leftBorder; }
+    method int getUpBorder() { return upBorder; }
+
+    method void draw() {
+        /*
+        Draws the borders of the score grid
+        */
+        do container.draw();
+        return;
+    }
+
+    method void blank() {
+        do container.blank();
+        return;
+    }
+}

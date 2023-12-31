@@ -1,0 +1,144 @@
+class Game {
+    field ScoreLayout board;
+    field SnakeGridLayout snakeGrid;
+    field Snake snake;
+    field Apple apple;
+
+    constructor Game new() {
+        var Point p1, p2, p3, p4;
+
+        let p1 = Point.new(411, 0);
+        let p2 = Point.new(511, 0);
+        let p3 = Point.new(511, 255);
+        let p4 = Point.new(411, 255);
+        let board = ScoreLayout.new(p1, p2, p3, p4);
+
+        // Snake grid is 40 x 25 SnakePixels
+        let snakeGrid = SnakeGridLayout.new(Point.new(0, 0), p1, p4, Point.new(0, 255));
+        
+        do Random.setSeed(0);
+        let snake = Snake.new();
+        return this;
+    }
+
+    method void start() {
+        var char key;
+        var int stopReason;
+
+        let apple = Apple.random(snakeGrid);
+        do board.draw();
+        do snakeGrid.draw();
+        
+        do Output.moveCursor(10, 10);
+        do Output.printString("Press S to start playing");
+        do Output.moveCursor(0, 0);
+
+        let key = Keyboard.keyPressed();
+        while (~(key = 83)) { // Wait until 'S' is pressed
+            let key = Keyboard.keyPressed();
+        }
+        let stopReason = play();
+        if (stopReason = 0)
+        {
+            do Output.printString("Finished!");
+        }
+        if (stopReason = 1)
+        {
+            do Output.printString("Game over! You hit the border");
+        }
+        if (stopReason = 2)
+        {
+            do Output.printString("Game over! You ate yourself");
+        }
+        return;
+    }
+
+    method int play() {
+        var char key;
+        var int snakeHitBorder, snakeAteApple, snakeSelfEat;
+        
+        let snakeHitBorder = 0;
+        let snakeSelfEat = 0;
+
+        let key = Keyboard.keyPressed();
+        while (~(key = 70) & (snakeHitBorder = 0) & (snakeSelfEat = 0)) { // Wait until 'F' is pressed or snake hit the border or snake ate itself
+            
+            // Render
+            do snakeGrid.blank();
+            do snake.render();
+            do apple.render();
+            do Sys.wait(100);
+
+            // Handle change of direction
+            if ((key = 130) | (key = 131) | (key = 132) | (key = 133)) {
+                do snake.changeDirection(Game.arrowKeyToDirection(key));
+            }
+
+            // Advance
+            do snake.advance();
+
+            // Handle borders
+            let snakeHitBorder = hasSnakeHitBorder();
+            
+            // Handle self-eating
+            let snakeSelfEat = snake.hasEeatenItself();
+
+            if ((snakeHitBorder = 0) & (snakeSelfEat = 0)) {
+                // Handle apple eating
+                let snakeAteApple = hasSnakeEatenApple();
+                if (snakeAteApple = 1) {
+                    let apple = Apple.random(snakeGrid);
+                    do snake.eat();
+                }
+                // Read key pressed
+                let key = Keyboard.keyPressed();
+            }
+        }
+
+        if (snakeHitBorder = 1) {
+            return 1;
+        }
+        if (snakeSelfEat = 1) { 
+            return 2;
+        }
+        return 0;
+    }
+
+    function int arrowKeyToDirection(int k) {
+        /* 
+        k - 132: right
+            130: left
+            131: up
+            133: down
+        */
+        if (k = 132) {return 0;}
+        if (k = 133) {return 1;}
+        if (k = 130) {return 2;}
+        if (k = 131) {return 3;}
+        return 0;
+        
+    }
+
+    method int hasSnakeHitBorder() {
+        var Point snakeHeadPoint;
+
+        let snakeHeadPoint = snake.getCurrentHeadPoint();
+        if ((snakeHeadPoint.getX() > snakeGrid.getRightBorder()) | (snakeHeadPoint.getX() < snakeGrid.getLeftBorder())
+            | (snakeHeadPoint.getY() > snakeGrid.getDownBorder()) | (snakeHeadPoint.getY() < snakeGrid.getUpBorder())) {
+            return 1;
+        }
+        return 0;
+    }
+
+    method int hasSnakeEatenApple() {
+        var Point applePoint, snakeHeadPoint;
+
+        let applePoint = apple.getPoint();
+        let snakeHeadPoint = snake.getCurrentHeadPoint();
+        if ((snakeHeadPoint.getX() = applePoint.getX()) & (snakeHeadPoint.getY() = applePoint.getY())) {
+            return 1;
+        }
+        return 0;
+    }
+    
+}

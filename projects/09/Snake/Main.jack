@@ -1,0 +1,45 @@
+class Main {
+    function void main () {
+        var Game game;
+        var Snake s, snake;
+        var SnakePixelNode spn, spn2, n;
+        var SnakePixel sp, sp2;
+        var SnakePixelQueue q;
+        let game = Game.new();
+        do game.start();
+        
+        // let snake = Snake.new();
+        // do snake.changeDirection(1);
+        // do snake.advance();
+        // do snake.changeDirection(2);
+        // do snake.advance();
+        // do snake.changeDirection(3);
+        // do snake.advance();
+
+        // do snake.print();
+        // do Output.printInt(snake.hasEeatenItself());
+
+
+
+        // var Point p1, p2;
+        // var SnakePixel sp1, sp2;
+        // var SnakePixelNode n1, n2;
+        // var SnakePixelQueue sq;
+        // var Snake s;
+
+        // let p1 = Point.new(10,10);
+        // let p2 = Point.new(10,10);
+        // let sp1 = SnakePixel.new(p1);
+        // let sp2 = SnakePixel.new(p2);
+
+        // let sq = SnakePixelQueue.new();
+        // let n1 = SnakePixelNode.new(sp1, null);
+        // let n2 = SnakePixelNode.new(sp2, null);
+        // do sq.enqueue(n1);
+        // do sq.enqueue(n2);
+
+        // let s = Snake.new1(sq);
+        // do Output.printInt(s.hasEeatenItself());
+        return;
+    }
+}

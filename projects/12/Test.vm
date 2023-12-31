@@ -1,0 +1,5 @@
+function Test.init 1
+push constant 0
+pop local 0
+push constant 0
+return

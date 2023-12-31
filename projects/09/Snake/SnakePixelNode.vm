@@ -1,0 +1,79 @@
+function SnakePixelNode.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push constant 0
+pop this 2
+push pointer 0
+return
+function SnakePixelNode.getData 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function SnakePixelNode.getNext 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function SnakePixelNode.getPrev 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function SnakePixelNode.setNext 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push constant 0
+return
+function SnakePixelNode.setPrev 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 2
+push constant 0
+return
+function SnakePixelNode.print 2
+push argument 0
+pop pointer 0
+push pointer 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+eq
+not
+not
+if-goto WHILE_END0
+push local 0
+call SnakePixelNode.getData 1
+pop local 1
+push local 1
+call SnakePixel.print 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 0
+call SnakePixelNode.getNext 1
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function SnakePixelNode.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixel.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,16 @@
+class ScoreLayout {
+    field VoidRectangle container;
+
+    constructor ScoreLayout new(Point lu, Point ru, Point rd, Point ld) {
+        let container = VoidRectangle.new(lu, ru, rd, ld);
+        return this;
+    }
+
+    method void draw() {
+        /*
+        Draws the borders of the score grid
+        */
+        do container.draw();
+        return;
+    }
+}

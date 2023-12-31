@@ -1,0 +1,51 @@
+function Apple.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call SnakePixel.new 1
+pop this 0
+push pointer 0
+return
+function Apple.random 3
+push constant 39
+call Random.randRange 1
+pop local 1
+push constant 24
+call Random.randRange 1
+pop local 2
+push argument 0
+call SnakeGridLayout.getLeftBorder 1
+push constant 1
+add
+call SnakePixel.getWidth 0
+push local 1
+call Math.multiply 2
+add
+push argument 0
+call SnakeGridLayout.getUpBorder 1
+push constant 1
+add
+call SnakePixel.getWidth 0
+push local 2
+call Math.multiply 2
+add
+call Point.new 2
+pop local 0
+push local 0
+call Apple.new 1
+return
+function Apple.getPoint 0
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixel.getCoordinates 1
+return
+function Apple.render 0
+push argument 0
+pop pointer 0
+push this 0
+call SnakePixel.draw 1
+pop temp 0
+push constant 0
+return

@@ -1,0 +1,54 @@
+// Based on List given in project 09
+
+/** Represents a linked list of integers. */
+class SnakePixelNode {
+    field SnakePixel data;          // a SnakePixelNode consists of a data field,
+    field SnakePixelNode next;         // followed by a SnakePixelNode
+    field SnakePixelNode prev;         // follows a SnakePixelNode
+
+    /* Creates a SnakePixelNode. */
+    constructor SnakePixelNode new(SnakePixel car, SnakePixelNode cdr) {
+        let data = car;       // the identifiers car and cdr are used in 
+        let next = cdr;       // memory of the Lisp programming language
+        let prev = null;
+        return this;
+    }
+
+    /** Accessors. */
+    method SnakePixel getData() { return data; }
+    method SnakePixel getNext() { return next; }
+    method SnakePixel getPrev() { return prev; }
+    method void setNext(SnakePixelNode e) {
+        let next = e;
+        return;
+    }
+    method void setPrev(SnakePixelNode e) {
+        let prev = e;
+        return;
+    }
+
+    /** Prints this SnakePixelNode. */
+    method void print() {
+        var SnakePixelNode current;    // initializes current to the first item
+        var SnakePixel currentPixel;
+        let current = this;  // of this SnakePixelNode
+        while (~(current = null)) {
+            let currentPixel = current.getData();
+            do currentPixel.print();
+            do Output.println(); // prints a space
+            let current = current.getNext();
+        }
+        return;
+    }
+
+    /** Disposes this SnakePixelNode by recursively disposing its tail. */
+    method void dispose() {
+        do data.dispose();
+        // Uses an OS routine to recycle this object.
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // More SnakePixelNode processing methods can come here.
+
+}

@@ -1,0 +1,40 @@
+class Point {
+    field int cx;
+    field int cy;
+
+    constructor Point new (int x, int y) {
+        let cx = x;
+        let cy = y;
+        return this;
+    }
+
+    method int getX() {
+        return cx;
+    }
+
+    method int getY() {
+        return cy;
+    }
+
+    method int isEqual(Point other) {
+        if ((cx = other.getX()) & (cy = other.getY())) {
+            return 1;
+        }
+        return 0;
+    }
+
+    method void print() {
+        do Output.printString("X: ");
+        do Output.printInt(cx);
+        do Output.printString(" - Y: ");
+        do Output.printInt(cy);
+        return;
+    }
+
+    /** Disposes this Point */
+    method void dispose() {
+        // Uses an OS routine to recycle this object.
+        do Memory.deAlloc(this);
+        return;
+    }
+}

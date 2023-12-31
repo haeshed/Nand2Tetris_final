@@ -1,0 +1,28 @@
+class Apple {
+    field SnakePixel apple;
+
+    constructor Apple new (Point p) {
+        let apple = SnakePixel.new(p);
+        return this;
+    }
+    
+    function Apple random(SnakeGridLayout grid) {
+        var Point randPoint;
+        var int randX, randY;
+
+        let randX = Random.randRange(39);
+        let randY = Random.randRange(24);
+        let randPoint = Point.new(grid.getLeftBorder() + 1 + (SnakePixel.getWidth() * randX), 
+                                  grid.getUpBorder() + 1 + (SnakePixel.getWidth() * randY));
+        return Apple.new(randPoint);
+    }
+
+    method Point getPoint() {
+        return apple.getCoordinates();
+    }
+
+    method void render() {
+        do apple.draw();
+        return;
+    }
+}

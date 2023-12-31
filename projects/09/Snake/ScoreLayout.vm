@@ -1,0 +1,20 @@
+function ScoreLayout.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+push argument 2
+push argument 3
+call VoidRectangle.new 4
+pop this 0
+push pointer 0
+return
+function ScoreLayout.draw 0
+push argument 0
+pop pointer 0
+push this 0
+call VoidRectangle.draw 1
+pop temp 0
+push constant 0
+return

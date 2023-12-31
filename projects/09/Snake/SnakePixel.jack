@@ -1,0 +1,44 @@
+class SnakePixel {
+
+    static int width;
+    field Point pixelCoordinates;
+
+    constructor SnakePixel new(Point c) {
+        let width = 10;
+        let pixelCoordinates = Point.new(c.getX(), c.getY());
+        return this;
+    }
+
+    /* Getters */
+    method Point getCoordinates() {
+        return pixelCoordinates;
+    }
+
+    method int isEqual(SnakePixel p) {
+        return pixelCoordinates.isEqual(p.getCoordinates());
+    }
+
+    function int getWidth() {
+        return width;
+    }
+
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(pixelCoordinates.getX(), pixelCoordinates.getY(), pixelCoordinates.getX() + width, pixelCoordinates.getY() + width);
+        do Screen.setColor(false);
+        return;
+    }
+
+    method void print() {
+        do pixelCoordinates.print();
+        return;
+    }
+
+    /** Disposes this SnakePixel */
+    method void dispose() {
+        do pixelCoordinates.dispose();
+        // Uses an OS routine to recycle this object.
+        do Memory.deAlloc(this);
+        return;
+    }
+}

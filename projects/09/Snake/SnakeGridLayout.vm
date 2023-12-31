@@ -1,0 +1,60 @@
+function SnakeGridLayout.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+push argument 1
+push argument 2
+push argument 3
+call VoidRectangle.new 4
+pop this 0
+push argument 2
+call Point.getX 1
+pop this 1
+push argument 2
+call Point.getY 1
+pop this 2
+push argument 0
+call Point.getX 1
+pop this 3
+push argument 0
+call Point.getY 1
+pop this 4
+push pointer 0
+return
+function SnakeGridLayout.getRightBorder 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function SnakeGridLayout.getDownBorder 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function SnakeGridLayout.getLeftBorder 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function SnakeGridLayout.getUpBorder 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function SnakeGridLayout.draw 0
+push argument 0
+pop pointer 0
+push this 0
+call VoidRectangle.draw 1
+pop temp 0
+push constant 0
+return
+function SnakeGridLayout.blank 0
+push argument 0
+pop pointer 0
+push this 0
+call VoidRectangle.blank 1
+pop temp 0
+push constant 0
+return

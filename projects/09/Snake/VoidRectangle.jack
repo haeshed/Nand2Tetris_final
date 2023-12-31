@@ -1,0 +1,33 @@
+class VoidRectangle {
+    field Point leftUpper;
+    field Point rightUpper;
+    field Point leftDown;
+    field Point rightDown;
+
+    constructor VoidRectangle new(Point lu, Point ru, Point rd, Point ld) {
+        let leftUpper = lu;
+        let leftDown = ld;
+        let rightUpper = ru;
+        let rightDown = rd;
+        return this;
+    }
+
+    method void draw() {
+        /*
+        Draws the rectangle
+        */
+        do Screen.setColor(true);
+        do Screen.drawLine(leftUpper.getX(), leftUpper.getY(), rightUpper.getX(), rightUpper.getY());
+        do Screen.drawLine(rightUpper.getX(), rightUpper.getY(), rightDown.getX(), rightDown.getY());
+        do Screen.drawLine(rightDown.getX(), rightDown.getY(), leftDown.getX(), leftDown.getY());
+        do Screen.drawLine(leftDown.getX(), leftDown.getY(), leftUpper.getX(), leftUpper.getY());
+        do Screen.setColor(false);
+        return;
+    }
+
+    method void blank() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(leftUpper.getX() + 1, leftUpper.getY() + 1, rightDown.getX() - 1, rightDown.getY() - 1);
+        return;
+    }
+}

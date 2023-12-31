@@ -1,0 +1,168 @@
+class Snake {
+
+    field SnakePixelQueue sq; // The queue representing the snake
+    field int direction;
+    field SnakePixelNode lastTail;
+
+    constructor Snake new() {
+        var SnakePixelNode n1, n2, n3;
+
+        // Init snake
+        let direction = 0; // 0 - right, 1 - down, 2 - left, 3 - up
+        let sq = SnakePixelQueue.new();
+        let n1 = SnakePixelNode.new(SnakePixel.new(Point.new(41, 41)), null);
+        let n2 = SnakePixelNode.new(SnakePixel.new(Point.new(51, 41)), null);
+        let n3 = SnakePixelNode.new(SnakePixel.new(Point.new(61, 41)), null);
+        do sq.enqueue(n1);
+        do sq.enqueue(n2);
+        do sq.enqueue(n3);
+        return this;
+    }
+
+    method void render() {
+        var SnakePixelNode nSnakePixel;
+        var SnakePixel snakePixel;
+        var Point cSnakePixel; // Coordinates of SnakePixel
+        do Screen.setColor(true);
+        let nSnakePixel = sq.getHead();
+        while (~(nSnakePixel = null)) {
+            let snakePixel = nSnakePixel.getData();
+            let cSnakePixel = snakePixel.getCoordinates();
+            do Screen.drawRectangle(cSnakePixel.getX(), cSnakePixel.getY(), cSnakePixel.getX() + SnakePixel.getWidth(), cSnakePixel.getY() + SnakePixel.getWidth());
+            let nSnakePixel = nSnakePixel.getNext();
+        }
+        do Screen.setColor(false);
+        return;
+    }
+
+    method void changeDirection(int d) {
+        /*
+        Change direction of snake. Make sure that new direction is valid (for example you cannot go from right to left)
+        */
+        if ((d = 0) | (d = 2)) {
+            if ((direction = 1) | (direction = 3)) {
+                let direction = d;
+            }
+        }
+
+        if ((d = 1) | (d = 3)) {
+            if ((direction = 0) | (direction = 2)) {
+                let direction = d;
+            }
+        }
+        return;
+    }
+
+    method void advance() {
+        var SnakePixelNode currentLastTail;
+        
+        // Free memory of lastTail as we are not going to use it after we advance
+        let currentLastTail = lastTail;
+        if (~(currentLastTail = null)) {
+            do currentLastTail.dispose();
+        }
+
+        if (direction = 0) {
+            do moveRight();
+        }
+
+        if (direction = 1) {
+            do moveDown();
+        }
+
+        if (direction = 2) {
+            do moveLeft();
+        }
+
+        if (direction = 3) {
+            do moveUp();
+        }
+
+        let lastTail = sq.dequeue();
+        return;
+    }
+
+    method Point getCurrentHeadPoint() {
+        var SnakePixelNode currentHead;
+        var SnakePixel headPixel;
+        var Point headPoint;
+
+        let currentHead = sq.getHead();
+        let headPixel = currentHead.getData();
+        let headPoint = headPixel.getCoordinates();
+        return headPoint;
+
+    }
+    method void moveRight() {
+        var SnakePixelNode newHead;
+        var SnakePixel newPixel;
+        var Point headPoint;
+
+        let headPoint = getCurrentHeadPoint();
+        let newPixel = SnakePixel.new(Point.new(headPoint.getX() + SnakePixel.getWidth(), headPoint.getY()));
+        let newHead = SnakePixelNode.new(newPixel, null);
+        do sq.enqueue(newHead);
+        return;
+    }
+
+    method void moveDown() {
+        var SnakePixelNode newHead;
+        var SnakePixel newPixel;
+        var Point headPoint;
+
+        let headPoint = getCurrentHeadPoint();
+        let newPixel = SnakePixel.new(Point.new(headPoint.getX(), headPoint.getY() + SnakePixel.getWidth()));
+        let newHead = SnakePixelNode.new(newPixel, null);
+        do sq.enqueue(newHead);
+        return;
+    }
+
+    method void moveLeft() {
+        var SnakePixelNode newHead;
+        var SnakePixel newPixel;
+        var Point headPoint;
+
+        let headPoint = getCurrentHeadPoint();
+        let newPixel = SnakePixel.new(Point.new(headPoint.getX() - SnakePixel.getWidth(), headPoint.getY()));
+        let newHead = SnakePixelNode.new(newPixel, null);
+        do sq.enqueue(newHead);
+        return;
+    }
+
+    method void moveUp() {
+        var SnakePixelNode newHead;
+        var SnakePixel newPixel;
+        var Point headPoint;
+
+        let headPoint = getCurrentHeadPoint();
+        let newPixel = SnakePixel.new(Point.new(headPoint.getX(), headPoint.getY() - SnakePixel.getWidth()));
+        let newHead = SnakePixelNode.new(newPixel, null);
+        do sq.enqueue(newHead);
+        return;
+    }
+
+    method void eat() {
+        var SnakePixel lastPixel;
+        var Point lastPixelPoint;
+
+        do sq.addTail(lastTail);
+        let lastPixel = lastTail.getData();
+        let lastPixelPoint = lastPixel.getCoordinates();
+        do Screen.setColor(true);
+        do Screen.drawRectangle(lastPixelPoint.getX(), lastPixelPoint.getY(), lastPixelPoint.getX() + SnakePixel.getWidth(), lastPixelPoint.getY() + SnakePixel.getWidth());
+        do Screen.setColor(false);
+        let lastTail = lastTail.getNext();
+        return;
+    }
+
+    method int hasEeatenItself() {
+        return sq.isHeadDuplicate();
+    }
+
+    method void print() {
+        do Output.printString("Snake: ");
+        do Output.println();
+        do sq.print();
+        return;
+    }
+}
